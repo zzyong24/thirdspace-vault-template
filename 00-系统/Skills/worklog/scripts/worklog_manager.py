@@ -77,7 +77,7 @@ class WorklogManager:
 
         Args:
             worklog_dir: worklog 根目录路径
-                         (即 vault/space/crafted/work/worklog/)
+                         (即 vault/02-日记/工作日志/)
         """
         self.worklog_dir = Path(worklog_dir)
         self.worklog_dir.mkdir(parents=True, exist_ok=True)

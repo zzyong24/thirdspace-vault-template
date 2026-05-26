@@ -634,7 +634,7 @@ function renderEventCaptureSchema() {
     'version: "2026-05-24"',
     'description: "全局路由、Git Hook、Agent Hook 和工作日志事件采集契约。"',
     "vault_resolver:",
-    '  order: ["walk_up:.thirdspace/workspace-index.yaml", "env:THIRDSPACE_VAULT", "file:~/.thirdspace/config.yaml", "fallback:/Users/zyongzhu/ThirdSpace"]',
+    '  order: ["walk_up:.thirdspace/workspace-index.yaml", "env:THIRDSPACE_VAULT", "file:~/.thirdspace/config.yaml", "fallback:error (no hardcoded fallback)"]',
     "worklog:",
     '  path_template: "02-日记/工作日志/YYYYMMDD_工作日志_周X.md"',
     '  sections: ["今日重点", "Git 提交", "Agent 产出", "关键决策", "问题与风险", "明日计划"]',
@@ -871,7 +871,7 @@ function installRuntime(args = {}) {
 }
 
 function createFile(args) {
-  const vaultRoot = path.resolve(args.vault || "/Users/zyongzhu/ThirdSpace");
+  const vaultRoot = path.resolve(args.vault || resolveVault(process.cwd()).vaultRoot);
   const workspace = args.workspace || detectWorkspace(args.cwd || process.cwd(), vaultRoot).dir || "01-收件箱";
   const defaults = TYPE_DEFAULTS[workspace] || TYPE_DEFAULTS["01-收件箱"];
   const title = args.title || args._[1];
@@ -896,7 +896,7 @@ function createFile(args) {
 
 function updateFrontmatter(args) {
   const file = path.resolve(args.file);
-  const vaultRoot = path.resolve(args.vault || "/Users/zyongzhu/ThirdSpace");
+  const vaultRoot = path.resolve(args.vault || resolveVault(process.cwd()).vaultRoot);
   const current = fs.existsSync(file) ? fs.readFileSync(file, "utf8") : "";
   if (!current) throw new Error(`file not found or empty: ${file}`);
   const detected = detectWorkspace(path.dirname(file), vaultRoot);
@@ -946,7 +946,7 @@ function resolveVault(args = {}) {
   if (process.env.THIRDSPACE_VAULT) return { vaultRoot: path.resolve(process.env.THIRDSPACE_VAULT), source: "env", cwd };
   const configured = readConfiguredVault();
   if (configured) return { vaultRoot: path.resolve(configured), source: "config", cwd };
-  return { vaultRoot: "/Users/zyongzhu/ThirdSpace", source: "fallback", cwd };
+  throw new Error("Cannot resolve vault root. Run from within a vault directory or set THIRDSPACE_VAULT.");
 }
 
 function routeIntent(intent = "") {
@@ -1674,7 +1674,7 @@ function printHelp() {
 function main() {
   const args = parseArgs(process.argv.slice(2));
   const command = args._[0] || "help";
-  const vaultRoot = path.resolve(args.vault || "/Users/zyongzhu/ThirdSpace");
+  const vaultRoot = path.resolve(args.vault || resolveVault(process.cwd()).vaultRoot);
   let result;
   if (command === "help") {
     printHelp();

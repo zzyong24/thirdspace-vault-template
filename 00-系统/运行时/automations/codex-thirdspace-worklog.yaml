@@ -2,9 +2,12 @@ name: "ThirdSpace 每日工作日志初始化"
 kind: "cron"
 status: "ACTIVE"
 schedule: "daily 08:00 Asia/Shanghai"
-cwd: "{VAULT_PATH}"
+# cwd 和 vault 路径由 Agent 在运行时从 .thirdspace/workspace-index.yaml 解析
+# 不硬编码绝对路径，部署时由 install-runtime 根据实际 vault 位置生成
+cwd: "{VAULT}"
 execution_environment: "local"
 model: "gpt-5.2"
 reasoning_effort: "low"
 prompt: >-
-  Run node {VAULT_PATH}/00-系统/Skills/thirdspace-vault/scripts/thirdspace-vault.mjs ensure-worklog --vault {VAULT_PATH}.
+  Run node {SKILLS}/thirdspace-vault/scripts/thirdspace-vault.mjs ensure-worklog --vault {VAULT}.
+  {VAULT} = directory containing .thirdspace/workspace-index.yaml (walk up from cwd to find it).
