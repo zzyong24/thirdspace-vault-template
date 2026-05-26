@@ -2,6 +2,8 @@
 
 一个可直接 clone 使用的知识库操作系统模板。
 
+📖 **[完整使用手册 → MANUAL.md](./MANUAL.md)**
+
 ## 设计理念
 
 - **Agent-native**：所有知识库操作由 AI Agent（Claude Code 或其他）驱动，无需手动维护
