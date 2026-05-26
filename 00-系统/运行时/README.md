@@ -33,7 +33,7 @@ ls "$VAULT/.thirdspace"
 cat "$VAULT/.thirdspace/workspace-index.yaml"
 ```
 
-`{SKILLS}` = ThirdSpace skills 根目录（`~/.skills-manager/skills` 或相对路径 `./00-系统/Skills`）。
+`{SKILLS}` = ThirdSpace skills 根目录（vault 内相对路径 `./00-系统/Skills`，即 `{VAULT}/00-系统/Skills`）。
 
 ## Obsidian 插件
 
