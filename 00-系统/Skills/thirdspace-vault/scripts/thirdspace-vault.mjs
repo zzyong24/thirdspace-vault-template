@@ -930,7 +930,7 @@ function findVaultUpwards(cwd) {
 }
 
 function readConfiguredVault() {
-  const home = process.env.HOME || "/Users/zyongzhu";
+  const home = process.env.HOME || require("os").homedir();
   const config = path.join(home, ".thirdspace", "config.yaml");
   if (!fs.existsSync(config)) return "";
   const text = fs.readFileSync(config, "utf8");
