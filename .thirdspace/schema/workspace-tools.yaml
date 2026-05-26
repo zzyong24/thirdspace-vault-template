@@ -27,9 +27,6 @@ workspace_skills:
   "03-知识":
     primary: workspace-knowledge
     domain:
-      article:
-        skill: article
-        triggers: [文章, 发布, 写作]
       review:
         skill: review
         triggers: [复盘, 回顾, 周报, 月报]
@@ -44,10 +41,7 @@ workspace_skills:
 
   "06-输出":
     primary: workspace-outputs
-    domain:
-      article:
-        skill: article
-        triggers: [发布, 文章, 口播, 脚本]
+    domain: []
 
   "99-归档":
     primary: workspace-archive
