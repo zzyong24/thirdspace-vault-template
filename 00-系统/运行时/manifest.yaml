@@ -1,0 +1,32 @@
+version: "2026-05-26"
+description: "ThirdSpace 可迁移运行时资产索引。路径均相对于 vault 根（{VAULT}）。"
+# 注意：vault_root 故意不写死，由 resolve-vault 在运行时动态确定。
+# 在 vault 根目录工作时，所有路径均为相对路径。
+skill_root: "00-系统/Skills"
+runtime_root: "00-系统/运行时"
+
+assets:
+  global_git_hook: "00-系统/运行时/hooks/global-post-commit.sh"
+  repo_git_hook: "00-系统/运行时/hooks/repo-post-commit.sh"
+  claude_stop_hook: "00-系统/运行时/hooks/claude-stop-hook.sh"
+  crontab: "00-系统/运行时/crontab/thirdspace-worklog.cron"
+  codex_automation: "00-系统/运行时/automations/codex-thirdspace-worklog.yaml"
+
+# Obsidian 插件（随 vault 版本控制，init 时自动启用）
+obsidian_plugins:
+  thirdspace-dashboard:
+    path: ".obsidian/plugins/thirdspace-dashboard"
+    manifest: ".obsidian/plugins/thirdspace-dashboard/manifest.json"
+    required: true
+    enable_on_init: true
+
+install:
+  # 在 vault 根目录执行（VAULT="."）：
+  command: "node {SKILLS}/thirdspace-vault/scripts/thirdspace-vault.mjs install-runtime --vault . --all"
+  global_git_hooks_path: "~/.config/git/hooks"
+  crontab_marker: "THIRDSPACE DAILY WORKLOG"
+
+# 新机器初始化步骤（resolve-vault 成功后自动执行）：
+# 1. install-runtime --all  → 注册 git hook + crontab
+# 2. 启用 Obsidian 插件    → 见 obsidian_plugins 配置
+# 3. 验收：ls .thirdspace && cat .thirdspace/workspace-index.yaml

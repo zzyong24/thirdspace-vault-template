@@ -1,0 +1,83 @@
+# ThirdSpace 工作区子系统契约
+# 供 Agent 路由、状态校验、审计时使用。
+# 路径无关——{VAULT}/.thirdspace/schema/subsystems.yaml
+
+version: "1.0"
+
+workspaces:
+
+  "00-系统":
+    desc: "系统规范、Skills、运行时"
+    input: [manual, agent]
+    allowed_types: [spec, skill, roadmap, note]
+    status_machine: [draft, active, archived]
+    output_workspace: []
+    agent_writable: false       # 不允许 Agent 在此创建用户内容文件
+
+  "01-收件箱":
+    desc: "所有未分类内容的入口，定期清理"
+    input: [web, manual, obsidian-clipper, import, agent]
+    allowed_types: [note, clipping, card]
+    status_machine: [draft, active, processed, archived]
+    default_status: draft
+    output_workspace: [03-知识, 06-输出, 02-日记]
+    agent_writable: true
+
+  "02-日记":
+    desc: "时间线记录：工作日志、反思、人际事件"
+    input: [manual, agent]
+    allowed_types: [worklog, reflection, review, event, note]
+    status_machine: [draft, active, archived]
+    default_status: active
+    output_workspace: [06-输出]
+    agent_writable: true
+    subdirs:
+      - 工作日志
+      - 反思
+      - 复盘
+      - 人际事件
+
+  "03-知识":
+    desc: "经过加工的知识单元，长期积累"
+    input: [01-收件箱, manual, agent]
+    allowed_types: [note, card, study, spec, skill, roadmap]
+    status_machine: [draft, active, archived]
+    default_status: active
+    output_workspace: [06-输出]
+    agent_writable: true
+
+  "04-项目":
+    desc: "项目、产品 Roadmap、任务看板"
+    input: [manual, agent]
+    allowed_types: [roadmap, spec, board, note]
+    status_machine: [draft, active, archived]
+    default_status: active
+    output_workspace: [06-输出]
+    agent_writable: true
+
+  "05-资源":
+    desc: "图片、附件、外部素材（非文字内容）"
+    input: [import, manual]
+    allowed_types: [note]
+    status_machine: [active, archived]
+    default_status: active
+    output_workspace: [03-知识, 06-输出]
+    agent_writable: false
+
+  "06-输出":
+    desc: "对外发布内容（文章、口播稿、脚本）"
+    input: [03-知识, manual]
+    allowed_types: [article, voiceover, script, review]
+    status_machine: [draft, review, published, archived]
+    default_status: draft
+    output_workspace: []
+    agent_writable: true
+
+  "99-归档":
+    desc: "已归档内容，只读，不作为新内容入口"
+    input: [any]
+    allowed_types: [any]
+    status_machine: [archived]
+    default_status: archived
+    output_workspace: []
+    agent_writable: false

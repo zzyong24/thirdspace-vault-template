@@ -1,0 +1,75 @@
+# 工作区→工具/Skill 映射
+# 供 Agent 渐进式加载时确定需要激活哪些子 Skill。
+# 路径无关——{VAULT}/.thirdspace/schema/workspace-tools.yaml
+
+version: "1.0"
+
+# ── 工作区 Skill 绑定
+workspace_skills:
+  "00-系统":
+    primary: workspace-system
+    domain: []
+
+  "01-收件箱":
+    primary: workspace-inbox
+    domain: []
+
+  "02-日记":
+    primary: workspace-journal
+    domain:
+      worklog:
+        skill: worklog
+        triggers: [工作日志, worklog, 今日日志]
+      lifeos:
+        skill: lifeos
+        triggers: [人际, 生活, 事件, 关系]
+
+  "03-知识":
+    primary: workspace-knowledge
+    domain:
+      article:
+        skill: article
+        triggers: [文章, 发布, 写作]
+      review:
+        skill: review
+        triggers: [复盘, 回顾, 周报, 月报]
+
+  "04-项目":
+    primary: workspace-projects
+    domain: []
+
+  "05-资源":
+    primary: workspace-resources
+    domain: []
+
+  "06-输出":
+    primary: workspace-outputs
+    domain:
+      article:
+        skill: article
+        triggers: [发布, 文章, 口播, 脚本]
+
+  "99-归档":
+    primary: workspace-archive
+    domain: []
+
+# ── Obsidian 插件（随 vault 分发）
+obsidian_plugins:
+  thirdspace-dashboard:
+    desc: "知识库控制台：工作区统计、蛇形热力图、Todos、快捷操作"
+    source_dir: ".obsidian/plugins/thirdspace-dashboard"
+    version: "0.1.0"
+    required: true
+    install_on_init: true
+    enable_after_install: true
+    files:
+      - main.js
+      - styles.css
+      - manifest.json
+
+# ── 工具激活优先级规则
+routing_rules:
+  - 先按用户意图匹配 workspace（semantic routing）
+  - 匹配到 workspace 后加载 primary skill
+  - 只有意图命中 domain.triggers 时才加载 domain skill
+  - 不确定工作区时路由到 01-收件箱

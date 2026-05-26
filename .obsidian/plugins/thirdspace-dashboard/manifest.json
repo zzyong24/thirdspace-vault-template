@@ -1,0 +1,9 @@
+{
+  "id": "thirdspace-dashboard",
+  "name": "ThirdSpace Dashboard",
+  "version": "0.1.0",
+  "minAppVersion": "0.15.0",
+  "description": "Knowledge OS control panel — workspace health, activity heatmap, and quick actions for any ThirdSpace vault.",
+  "author": "MoonlitClear",
+  "isDesktopOnly": false
+}

@@ -1,0 +1,56 @@
+# Agent 事件采集规格
+# 定义 Agent Stop Hook 触发后如何记录重大产出到工作日志。
+# 路径无关——{VAULT}/.thirdspace/schema/event-capture.yaml
+
+version: "1.0"
+
+# ── 触发条件（满足任意一条即触发采集）
+capture_triggers:
+  - type: git_commit
+    desc: "当前 session 内有 git commit 记录"
+  - type: major_file_writes
+    threshold: 5
+    desc: "当前 session 写入文件数 > 5"
+  - type: task_completed
+    desc: "AIES 任务完成（archive 目录新增 task.json）"
+  - type: keyword_in_output
+    keywords: [completed, finished, commit, 任务完成, 全部通过, 验收通过, merge, deploy]
+    desc: "输出包含完成关键词"
+
+# ── 必填字段
+mandatory_fields:
+  - summary        # 一句话描述（What）
+  - why            # 为什么做（Why）
+  - how            # 怎么做的（How）
+  - changed_files  # 改了哪些文件/产出物（1-3 行）
+
+# ── 可选字段
+optional_fields:
+  - decision       # 关键决策
+  - risk           # 风险/遗留问题
+
+# ── 写入目标
+destination:
+  workspace: "02-日记"
+  path_pattern: "02-日记/工作日志/{YYYYMMDD}_工作日志_{WEEKDAY}.md"
+  section: "## 重点记录"
+  create_if_missing: true
+  template: "00-系统/运行时/templates/worklog-template.md"
+
+# ── 条目格式
+entry_format: |
+  ### {HH:MM} — {summary}
+
+  **为什么做**：{why}
+  **怎么做的**：{how}
+  **改了什么**：{changed_files}
+
+# ── 防死循环
+lock_file: "~/.claude/hook_state/stop_hook_active.flag"
+daily_flag: "~/.claude/hook_state/worklog_saved_{DATE}.flag"
+
+# ── 降级策略（MCP 不可用时）
+fallback:
+  strategy: direct_file_edit
+  tool: Edit
+  desc: "MCP 停用时，Agent 直接用 Edit 工具追加内容到 destination.path_pattern 对应文件"

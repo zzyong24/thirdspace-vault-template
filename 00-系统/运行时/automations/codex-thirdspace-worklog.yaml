@@ -1,0 +1,10 @@
+name: "ThirdSpace 每日工作日志初始化"
+kind: "cron"
+status: "ACTIVE"
+schedule: "daily 08:00 Asia/Shanghai"
+cwd: "{VAULT_PATH}"
+execution_environment: "local"
+model: "gpt-5.2"
+reasoning_effort: "low"
+prompt: >-
+  Run node {VAULT_PATH}/00-系统/Skills/thirdspace-vault/scripts/thirdspace-vault.mjs ensure-worklog --vault {VAULT_PATH}.

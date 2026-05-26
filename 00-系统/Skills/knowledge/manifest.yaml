@@ -1,0 +1,162 @@
+id: knowledge
+name: 知识引擎
+description: "网页/飞书/视频内容采集 → 知识卡片/学习文档"
+icon: "📚"
+category: knowledge
+tools:
+  - name: add_note
+    description: Quick-add a note to a topic
+    params:
+      - name: content
+        type: string
+        required: true
+      - name: topic
+        type: string
+        required: true
+      - name: title
+        type: string
+        required: false
+      - name: publish_slug
+        type: string
+        required: false
+  - name: collect_content
+    description: Fetch web page, extract content, save raw to intake, return for AI card generation
+    params:
+      - name: url
+        type: string
+        required: true
+      - name: html
+        type: string
+        required: false
+      - name: topic
+        type: string
+        required: false
+      - name: download_images
+        type: bool
+        required: false
+        default: true
+  - name: save_knowledge_card
+    description: Save AI-generated knowledge card to vault
+    params:
+      - name: title
+        type: string
+        required: true
+      - name: summary
+        type: string
+        required: true
+      - name: key_points
+        type: list
+        required: true
+      - name: thinking_questions
+        type: list
+        required: true
+      - name: tags
+        type: list
+        required: false
+      - name: topic
+        type: string
+        required: false
+        default: reading
+      - name: site_type
+        type: string
+        required: false
+        default: web
+      - name: url
+        type: string
+        required: false
+      - name: author
+        type: string
+        required: false
+      - name: publish_date
+        type: string
+        required: false
+      - name: site_name
+        type: string
+        required: false
+      - name: raw_filepath
+        type: string
+        required: false
+  - name: collect_study
+    description: Fetch high-density content for study doc generation (podcasts, tutorials, interviews)
+    params:
+      - name: url
+        type: string
+        required: true
+      - name: html
+        type: string
+        required: false
+      - name: topic
+        type: string
+        required: false
+      - name: download_images
+        type: bool
+        required: false
+        default: true
+  - name: save_study_doc
+    description: Save AI-generated study document to vault
+    params:
+      - name: title
+        type: string
+        required: true
+      - name: content
+        type: string
+        required: true
+      - name: topic
+        type: string
+        required: false
+        default: reading
+      - name: tags
+        type: list
+        required: false
+      - name: site_type
+        type: string
+        required: false
+        default: web
+      - name: url
+        type: string
+        required: false
+      - name: author
+        type: string
+        required: false
+      - name: publish_date
+        type: string
+        required: false
+      - name: site_name
+        type: string
+        required: false
+      - name: raw_filepath
+        type: string
+        required: false
+prompts:
+  - name: knowledge-card
+    path: prompts/knowledge-card.md
+    variables:
+      - title
+      - topic
+      - site_type
+      - url
+      - author
+      - publish_date
+      - site_name
+      - raw_filepath
+      - intake_dir
+  - name: study-doc
+    path: prompts/study-doc.md
+    variables:
+      - title
+      - topic
+      - site_type
+      - url
+      - author
+      - publish_date
+      - site_name
+      - raw_filepath
+      - intake_dir
+triggers:
+  - 收集
+  - 知识卡片
+  - 学习文档
+  - 抓取
+  - 笔记
+  - 网页收集
+dependencies: []

@@ -1,0 +1,26 @@
+# Frontmatter 字段约束
+# 供 Agent 校验时使用，路径无关。
+
+required_fields:
+  - title
+  - type
+  - topic
+  - workspace
+  - created
+  - modified
+  - tags
+  - source
+  - status
+
+source_values:
+  - mcp           # 通过 ThirdSpace MCP 工具写入
+  - manual        # 人工手写
+  - obsidian-clipper  # Obsidian Web Clipper 剪藏
+  - web           # 其他网页来源
+  - import        # 批量导入/迁移
+
+status_values:
+  - draft         # 草稿，未完成
+  - active        # 活跃，正在使用
+  - processed     # 已处理（适用于剪藏、收件箱内容）
+  - archived      # 已归档，不再活跃

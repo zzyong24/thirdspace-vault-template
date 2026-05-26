@@ -1,0 +1,4 @@
+# ThirdSpace daily worklog bootstrap.
+# Source of truth: 00-系统/运行时/crontab/thirdspace-worklog.cron
+# Installed by: thirdspace-vault install-runtime --crontab
+0 8 * * * /bin/zsh -lc 'node "/Users/zyongzhu/ThirdSpace/00-系统/Skills/thirdspace-vault/scripts/thirdspace-vault.mjs" ensure-worklog --vault "/Users/zyongzhu/ThirdSpace" >/tmp/thirdspace-worklog.log 2>&1'

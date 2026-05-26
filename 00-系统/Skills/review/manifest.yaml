@@ -1,0 +1,84 @@
+id: review
+name: 周报月报
+description: "全量扫描知识库，聚合周报/月报数据并生成复盘报告"
+icon: "📊"
+category: reflection
+tools:
+  - name: weekly_review
+    description: Aggregate all vault content for the target week
+    params:
+      - name: week_offset
+        type: int
+        required: false
+        default: 0
+      - name: prompt_name
+        type: string
+        required: false
+  - name: save_weekly_review
+    description: Save AI-generated weekly review report
+    params:
+      - name: week_label
+        type: string
+        required: true
+      - name: highlights
+        type: list
+        required: true
+      - name: knowledge_summary
+        type: string
+        required: true
+      - name: practice_progress
+        type: string
+        required: true
+      - name: insights
+        type: string
+        required: true
+      - name: next_focus
+        type: list
+        required: true
+      - name: content
+        type: string
+        required: false
+  - name: monthly_review
+    description: Aggregate all vault content for the target month
+    params:
+      - name: month_offset
+        type: int
+        required: false
+        default: 0
+      - name: prompt_name
+        type: string
+        required: false
+  - name: save_monthly_review
+    description: Save AI-generated monthly review report
+    params:
+      - name: month_label
+        type: string
+        required: true
+      - name: theme
+        type: string
+        required: true
+      - name: achievements
+        type: list
+        required: true
+      - name: knowledge_graph
+        type: string
+        required: true
+      - name: growth_track
+        type: string
+        required: true
+      - name: next_okr
+        type: list
+        required: true
+      - name: content
+        type: string
+        required: false
+prompts:
+  - name: weekly-review-guidance
+    path: prompts/weekly-review-guidance.md
+  - name: monthly-review-guidance
+    path: prompts/monthly-review-guidance.md
+triggers:
+  - "周报"
+  - "月报"
+  - "复盘"
+dependencies: []

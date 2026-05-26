@@ -1,0 +1,31 @@
+# 合法 topic / type 列表
+# 供 Agent 校验 Frontmatter 时使用，路径无关。
+# 新增 topic/type 前先更新此文件。
+
+topic_values:
+  - ai            # AI 相关知识、工程
+  - dev           # 软件开发、技术
+  - reading       # 阅读、书籍笔记
+  - work          # 工作日志、职场
+  - project       # 项目管理、产品
+  - tools         # 工具、CLI、工作流
+  - writing       # 写作、内容创作
+  - life          # 生活、个人成长
+  - system        # 系统规范、架构
+
+type_values:
+  - note          # 普通笔记
+  - card          # 知识卡片（已处理的知识单元）
+  - article       # 可发布文章
+  - voiceover     # 口播稿
+  - script        # 视频脚本
+  - review        # 复盘、回顾
+  - reflection    # 反思
+  - worklog       # 工作日志
+  - clipping      # 网页剪藏（原始）
+  - study         # 学习文档（精炼后的长篇笔记）
+  - spec          # 规范文档
+  - skill         # Skill 索引
+  - roadmap       # Roadmap 文档
+  - board         # 状态看板
+  - event         # 事件记录

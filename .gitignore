@@ -1,0 +1,31 @@
+# ── Obsidian 个人数据（不 commit）────────────────────────────
+# 保留：插件本体（plugins/*/main.js, manifest.json, styles.css）
+# 排除：个人配置、缓存、插件用户数据
+
+.obsidian/workspace.json        # 当前打开的文件、面板布局
+.obsidian/workspace-mobile.json
+.obsidian/hotkeys.json          # 快捷键（个人设置）
+.obsidian/graph.json            # 图谱视图设置
+.obsidian/starred.json          # 收藏夹
+
+# 插件个人数据（含凭据、对话历史、同步配置）
+.obsidian/plugins/remotely-save/
+.obsidian/plugins/lingxi/
+.obsidian/plugins/claudian/
+.obsidian/plugins/*/data.json
+.obsidian/plugins/*/data/
+
+# 缓存
+.obsidian/cache
+.obsidian/.cache
+
+# ── ThirdSpace 机器级配置（不 commit）──────────────────────
+.thirdspace/config.yaml         # 本机 vault 路径配置（可选）
+.thirdspace/reports/            # 审计报告（本机生成，不共享）
+.thirdspace/manifests/          # 迁移 manifest（本机临时）
+.thirdspace/queues/             # 处理队列（本机临时）
+
+# ── 系统 ─────────────────────────────────────────────────────
+.DS_Store
+*.swp
+*.tmp

@@ -1,0 +1,41 @@
+id: worklog
+name: 工作日志
+description: "智能工作日志：自动创建、智能分类、索引重建"
+icon: "📝"
+category: infrastructure
+tools:
+  - name: create_worklog
+    description: Create today's worklog document from template
+    params:
+      - name: content
+        type: string
+        required: false
+  - name: append_worklog
+    description: Append content to today's worklog with smart section routing
+    params:
+      - name: content
+        type: string
+        required: true
+      - name: section
+        type: string
+        required: false
+  - name: rebuild_worklog_index
+    description: Rebuild worklog index with keyword extraction
+    params: []
+  - name: auto_worklog
+    description: Auto-record work summary with timestamp and smart categorization
+    params:
+      - name: summary
+        type: string
+        required: true
+prompts:
+  - name: guidance
+    path: prompts/guidance.md
+triggers:
+  - "工作日志"
+  - "工作日志生成"
+  - "补充日志"
+  - "重建索引"
+  - "周报"
+  - "日报"
+dependencies: []

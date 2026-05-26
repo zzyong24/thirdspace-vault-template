@@ -1,0 +1,97 @@
+id: reflect
+name: 深度反思
+description: "Mirror/Deepen/Bridge 三步反思法 → 闭环 → 行动验证 → 元反思"
+icon: "🧠"
+category: reflection
+tools:
+  - name: gather_reflections
+    description: Collect answered thinking questions from knowledge cards
+    params:
+      - name: topic
+        type: string
+        required: false
+      - name: days
+        type: int
+        required: false
+        default: 7
+      - name: file_path
+        type: string
+        required: false
+  - name: save_reflection
+    description: Save Mirror/Deepen/Bridge reflection document
+    params:
+      - name: title
+        type: string
+        required: true
+      - name: mirror
+        type: string
+        required: true
+      - name: deepen
+        type: string
+        required: true
+      - name: bridge
+        type: string
+        required: true
+      - name: source_cards
+        type: list
+        required: true
+      - name: growth_track
+        type: string
+        required: false
+      - name: tags
+        type: list
+        required: false
+  - name: gather_reflection_closure
+    description: Read user answers to Deepen follow-up questions
+    params:
+      - name: file_path
+        type: string
+        required: true
+  - name: save_reflection_closure
+    description: Save closure review and auto-extract action items to todos.md
+    params:
+      - name: file_path
+        type: string
+        required: true
+      - name: closure_content
+        type: string
+        required: true
+  - name: verify_bridge_actions
+    description: Extract Bridge actions and prepare verification context
+    params:
+      - name: file_path
+        type: string
+        required: true
+  - name: save_action_verification
+    description: Save action verification results to reflection file
+    params:
+      - name: file_path
+        type: string
+        required: true
+      - name: verification_content
+        type: string
+        required: true
+  - name: meta_reflection
+    description: Cross-reflection pattern recognition and cognitive map generation
+    params:
+      - name: limit
+        type: int
+        required: false
+        default: 10
+prompts:
+  - name: reflection-guidance
+    path: prompts/reflection-guidance.md
+  - name: closure-guidance
+    path: prompts/closure-guidance.md
+  - name: action-verification-guidance
+    path: prompts/action-verification-guidance.md
+  - name: meta-reflection-guidance
+    path: prompts/meta-reflection-guidance.md
+triggers:
+  - "反思"
+  - "复盘思考"
+  - "反思复盘"
+  - "闭环"
+  - "认知地图"
+dependencies:
+  - actions

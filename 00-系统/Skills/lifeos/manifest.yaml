@@ -1,0 +1,100 @@
+id: lifeos
+name: 生活操作系统
+description: "人物画像管理、事件创建/分析/复盘系统"
+icon: "🌟"
+category: reflection
+tools:
+  - name: manage_people
+    description: CRUD and search for people profiles
+    params:
+      - name: action
+        type: string
+        required: true
+      - name: person_id
+        type: string
+        required: false
+      - name: data
+        type: string
+        required: false
+  - name: create_event
+    description: Create a structured event document from template
+    params:
+      - name: title
+        type: string
+        required: true
+      - name: description
+        type: string
+        required: true
+      - name: domain
+        type: string
+        required: false
+        default: work
+      - name: event_type
+        type: string
+        required: false
+        default: routine
+      - name: urgency
+        type: string
+        required: false
+        default: medium
+      - name: people
+        type: list
+        required: false
+      - name: emotion
+        type: string
+        required: false
+        default: "平静"
+  - name: analyze_event
+    description: Read event context and associated people for AI analysis
+    params:
+      - name: event_path
+        type: string
+        required: true
+  - name: save_event_analysis
+    description: Save AI-generated analysis to an event document section
+    params:
+      - name: event_path
+        type: string
+        required: true
+      - name: section
+        type: string
+        required: true
+      - name: content
+        type: string
+        required: true
+  - name: review_event
+    description: Read full event context for retrospective
+    params:
+      - name: event_path
+        type: string
+        required: true
+  - name: search_events
+    description: Multi-dimensional search across historical events
+    params:
+      - name: query
+        type: string
+        required: false
+      - name: event_type
+        type: string
+        required: false
+      - name: domain
+        type: string
+        required: false
+      - name: people
+        type: list
+        required: false
+      - name: status
+        type: string
+        required: false
+      - name: days
+        type: int
+        required: false
+prompts:
+  - name: event-analysis-guidance
+    path: prompts/event-analysis-guidance.md
+triggers:
+  - "人物"
+  - "事件"
+  - "复盘"
+  - "人际"
+dependencies: []

@@ -1,0 +1,59 @@
+# ThirdSpace Workspace Index
+# 此文件的存在标识当前目录为 vault 根，供 resolve-vault 向上遍历定位。
+# 所有路径相对于 vault 根，不写绝对路径。任何人 clone 此 vault 均可直接使用。
+#
+# resolve-vault 查找优先级：
+#   1. 向上遍历目录，找到此文件所在位置即为 vault 根（主要机制）
+#   2. 环境变量 $THIRDSPACE_VAULT（跨目录便利选项）
+#   3. ~/.thirdspace/config.yaml 的 vault 字段（机器级可选配置）
+#   4. 无可用配置时报错退出（不设硬编码 fallback）
+#
+# 路由说明：
+#   skill 触发时不使用 keywords 匹配，而是：
+#   1. 读取各工作区的 desc 字段（语义描述）
+#   2. 对 scan_dirs=true 的工作区执行 ls，获取当前子目录列表
+#   3. 把 desc + 子目录列表传给 Claude，由 Claude 做语义路由
+#   这样新建项目/子目录自动可被路由，无需维护额外关键字索引。
+
+version: "1.0"
+workspaces:
+  - dir: "00-系统"
+    skill: workspace-system
+    desc: "规范、Schema、Agent 协议、Skills、审计报告。与知识库系统工程相关的一切。"
+    scan_dirs: false
+
+  - dir: "01-收件箱"
+    skill: workspace-inbox
+    desc: "临时接收：网页剪藏、待整理内容、还没想好放哪里的东西。"
+    scan_dirs: false
+
+  - dir: "02-日记"
+    skill: workspace-journal
+    desc: "时间线记录：工作日志、个人反思、周月复盘、人际事件。不沉淀长期知识。"
+    scan_dirs: false
+
+  - dir: "03-知识"
+    skill: workspace-knowledge
+    desc: "长期知识沉淀：AI工程、开发技术、工具方法论、学习笔记、阅读卡片。不含原创文章或活跃项目文档。"
+    scan_dirs: true   # 扫描子目录，让 Claude 感知当前主题分布
+
+  - dir: "04-项目"
+    skill: workspace-projects
+    desc: "活跃产品和项目执行：MoonOS、灵犀、内容创作、商业合作等。含产品设计文档、roadmap、项目素材。"
+    scan_dirs: true   # 扫描子目录，让 Claude 感知当前项目列表
+
+  - dir: "05-资源"
+    skill: workspace-resources
+    desc: "长期参考资料：模板、图片、附件、工作流文档、人物档案。可复用但不主动写作的内容。"
+    scan_dirs: false
+
+  - dir: "06-输出"
+    skill: workspace-outputs
+    desc: "可发布成品：只放作者本人写的文章、口播稿。互联网转载内容不放这里，去收件箱。"
+    scan_dirs: false
+
+  - dir: "99-归档"
+    skill: workspace-archive
+    desc: "已废弃的系统、工具、过期文档。不参与日常工作流。"
+    scan_dirs: false
+
