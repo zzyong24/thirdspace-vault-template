@@ -8,8 +8,8 @@
 |---|---|---|
 | 全局入口 | `{AGENTS_SKILLS}/thirdspace-vault/SKILL.md` | 任意目录触发知识库操作时首先加载的入口 Skill。 |
 | 全局领域入口 | `{AGENTS_SKILLS}/lifeos/SKILL.md` | LifeOS 的全局轻量入口，指向 canonical Skill。 |
-| Canonical ThirdSpace Skills | `{VAULT_PATH}/00-系统/Skills/` | 工作区 Skill、领域 Skill、局部创作 Skill 和内部脚本的唯一主维护位置。 |
-| 运行时资产 | `{VAULT_PATH}/00-系统/运行时/` | hook、crontab、Agent 自动化规格的可迁移源。 |
+| Canonical ThirdSpace Skills | `{VAULT}/00-系统/Skills/` | 工作区 Skill、领域 Skill、局部创作 Skill 和内部脚本的唯一主维护位置。 |
+| 运行时资产 | `{VAULT}/00-系统/运行时/` | hook、crontab、Agent 自动化规格的可迁移源。 |
 
 ## 对外入口
 
@@ -68,7 +68,7 @@ thirdspace-vault
 ## 当前内部脚本入口
 
 ```text
-{VAULT_PATH}/00-系统/Skills/thirdspace-vault/scripts/thirdspace-vault.mjs
+{VAULT}/00-系统/Skills/thirdspace-vault/scripts/thirdspace-vault.mjs
 ```
 
 常用能力：

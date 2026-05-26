@@ -36,6 +36,13 @@ find_vault() {
         echo "$THIRDSPACE_VAULT"
         return 0
     fi
+    # 兜底：~/.thirdspace/config.yaml
+    local configured=""
+    configured=$(awk -F: '/^(default_vault|vault_root|vault):/{gsub(/^[ \t"]+|[ \t"]+$/, "", $2); print $2; exit}' "$HOME/.thirdspace/config.yaml" 2>/dev/null || true)
+    if [ -n "$configured" ] && [ -f "$configured/.thirdspace/workspace-index.yaml" ]; then
+        echo "$configured"
+        return 0
+    fi
     return 1
 }
 
