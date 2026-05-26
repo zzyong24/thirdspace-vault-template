@@ -28,13 +28,38 @@
 | **Obsidian** | 查看和编辑知识库文件 | obsidian.md |
 | **AI Agent** | 驱动所有知识库操作 | 见下方 |
 
-### 推荐的 AI Agent
+### 支持的 AI Agent
 
-| Agent | 完整度 | 说明 |
-|-------|--------|------|
-| **Claude Code** | ⭐⭐⭐ 完整 | 支持 Skill 全局注册、Stop Hook，推荐 |
-| Cursor | ⭐⭐ 较好 | 支持 `.cursor/rules`，需手动配置 |
-| Windsurf / 其他 | ⭐ 基础 | 可用，部分自动化功能需手动触发 |
+**理论上所有主流 Agent 均支持**——只要 Agent 能读取项目根目录的 `CLAUDE.md` / `AGENTS.md` 或自身的规则文件，就能驱动本知识库系统。
+
+以下 Agent 均通过 [Skills Manager](https://github.com/jaytl00/skills-manager) 完成 Skill 管理：
+
+| Agent | 规则文件 / Skill 路径 |
+|-------|----------------------|
+| Claude Code | `CLAUDE.md` · `~/.claude/skills/` |
+| Cursor | `CLAUDE.md` · `.cursor/rules/` |
+| Windsurf | `CLAUDE.md` · `.windsurf/rules/` |
+| OpenCode | `AGENTS.md` · `opencode.json` |
+| Codex (OpenAI) | `AGENTS.md` |
+| Amp | `AGENTS.md` |
+| Kilo Code | `AGENTS.md` · `.kilocode/rules/` |
+| Roo Code | `AGENTS.md` · `.roo/rules/` |
+| Goose | `AGENTS.md` |
+| Gemini CLI | `GEMINI.md` |
+| GitHub Copilot | `.github/copilot-instructions.md` |
+| Windsurf | `.windsurfrules` |
+| TRAE IDE | `AGENTS.md` |
+| Antigravity | `AGENTS.md` |
+| Clawdbot | `AGENTS.md` |
+| Droid | `AGENTS.md` |
+
+> Skills Manager 是一个开源桌面工具，可以统一管理多个 Agent 的 Skill 安装、同步和版本控制。
+
+**Skill 分发方式：**
+- 手动 `ln -sf` 软链到各 Agent 的 skills 目录
+- 使用 [Skills Manager](https://github.com/jaytl00/skills-manager) 统一管理（推荐）
+
+> **不同 Agent 的差异**：`init-vault` Skill 的安装步骤（hooks、crontab）由 Agent 自行感知当前环境和平台后执行，无需用户指定。不同 Agent 处理能力略有差异，但核心知识库操作（创建文件、路由工作区、维护 Frontmatter）在所有 Agent 上均可正常工作。
 
 ### 可选
 

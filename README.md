@@ -6,29 +6,33 @@
 
 ## 设计理念
 
-- **Agent-native**：所有知识库操作由 AI Agent（Claude Code 或其他）驱动，无需手动维护
+- **Agent-native**：所有知识库操作由 AI Agent 驱动，无需手动维护
+- **全 Agent 兼容**：支持 Claude Code、Cursor、Windsurf、OpenCode、Codex、Amp、Roo Code、Goose、Gemini CLI 等主流 Agent，通过 [Skills Manager](https://github.com/jaytl00/skills-manager) 统一管理
 - **自描述（Self-contained）**：vault 根目录存在 `.thirdspace/workspace-index.yaml` 即代表"这里是知识库"，无需任何外部配置
 - **路径无关**：任何人 clone 到任意目录均可直接使用，零硬编码绝对路径
 - **渐进式加载**：Skill 按需加载，日常操作不浪费 token
 
 ## 快速开始
 
-### 1. Clone
+### 1. Clone 或使用模板
 
 ```bash
-git clone https://github.com/your-org/thirdspace-vault-template my-vault
+# 方式 A：直接 clone
+git clone https://github.com/zzyong24/thirdspace-vault-template my-vault
 cd my-vault
+
+# 方式 B：点击页面上方 "Use this template" 创建你自己的 repo
 ```
 
 ### 2. 初始化（由 Agent 完成）
 
-在 vault 目录打开你的 AI Agent（Claude Code、Cursor 等），说：
+在 vault 目录打开任意 AI Agent，说：
 
 > 帮我初始化这个知识库
 
-Agent 会自动读取 `CLAUDE.md` → 加载 `init-vault` 子 Skill → 根据你的环境完成：
+Agent 读取 `CLAUDE.md` / `AGENTS.md` → 加载 `init-vault` Skill → 根据当前环境（OS、Agent 平台）自动完成：
 - 结构验证
-- Hook 安装（Claude Code Stop Hook / git hook）
+- Hook 安装（git hook / Agent stop hook）
 - 定时任务注册
 - Skill 全局注册
 
