@@ -7,7 +7,7 @@
 ## 设计理念
 
 - **Agent-native**：所有知识库操作由 AI Agent 驱动，无需手动维护
-- **全 Agent 兼容**：支持 Claude Code、Cursor、Windsurf、OpenCode、Codex、Amp、Roo Code、Goose、Gemini CLI 等主流 Agent，通过 [Skills Manager](https://github.com/jaytl00/skills-manager) 统一管理
+- **全 Agent 兼容**：支持 Claude Code、Cursor、Windsurf、OpenCode、Codex、Amp、Roo Code、Goose、Gemini CLI 等所有主流 Agent。Skills 内置在 vault 内，初始化时由 Agent 自动完成，无需外部工具
 - **自描述（Self-contained）**：vault 根目录存在 `.thirdspace/workspace-index.yaml` 即代表"这里是知识库"，无需任何外部配置
 - **路径无关**：任何人 clone 到任意目录均可直接使用，零硬编码绝对路径
 - **渐进式加载**：Skill 按需加载，日常操作不浪费 token
