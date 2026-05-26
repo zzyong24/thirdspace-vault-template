@@ -943,7 +943,12 @@ function resolveVault(args = {}) {
   const cwd = path.resolve(args.cwd || process.cwd());
   const upward = findVaultUpwards(cwd);
   if (upward) return { vaultRoot: upward, source: "walk_up", cwd };
-  if (process.env.THIRDSPACE_VAULT) return { vaultRoot: path.resolve(process.env.THIRDSPACE_VAULT), source: "env", cwd };
+  if (process.env.THIRDSPACE_VAULT) {
+    const envRoot = path.resolve(process.env.THIRDSPACE_VAULT);
+    if (fs.existsSync(path.join(envRoot, ".thirdspace", "workspace-index.yaml"))) {
+      return { vaultRoot: envRoot, source: "env", cwd };
+    }
+  }
   const configured = readConfiguredVault();
   if (configured) return { vaultRoot: path.resolve(configured), source: "config", cwd };
   throw new Error("Cannot resolve vault root. Run from within a vault directory or set THIRDSPACE_VAULT.");

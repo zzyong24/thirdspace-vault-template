@@ -1,3 +1,14 @@
+---
+name: article
+description: Use when writing, drafting, or publishing articles. Aggregates material from knowledge cards and reflections, guides AI to write structured articles.
+triggers:
+  - "写文章"
+  - "发布文章"
+  - "写一篇"
+  - "帮我写篇"
+  - "生成文章"
+  - "内容创作"
+---
 # Article Skill — 文章生成引擎
 
 ## 功能概述

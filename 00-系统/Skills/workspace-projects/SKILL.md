@@ -1,6 +1,13 @@
 ---
 name: workspace-projects
 description: Use when working inside ThirdSpace `04-项目`, creating or updating project files, auditing project categories, or deciding where an active project belongs.
+triggers:
+  - "项目"
+  - "roadmap"
+  - "产品"
+  - "04-项目"
+  - "项目分类"
+  - "project"
 ---
 
 # Workspace Projects Skill
@@ -15,7 +22,7 @@ description: Use when working inside ThirdSpace `04-项目`, creating or updatin
 
 1. `{VAULT}/04-项目/WORKSPACE.md`
 2. `{VAULT}/00-系统/规范/06_项目工作区分类治理规则.md`
-3. `{VAULT}/.thirdspace/schema/project-taxonomy.yaml`
+3. `{VAULT}/.thirdspace/schema/subsystems.yaml`
 
 ## 一级分类
 
