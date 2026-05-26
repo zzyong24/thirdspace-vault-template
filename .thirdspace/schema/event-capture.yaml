@@ -33,9 +33,18 @@ optional_fields:
 destination:
   workspace: "02-日记"
   path_pattern: "02-日记/工作日志/{YYYYMMDD}_工作日志_{WEEKDAY}.md"
-  section: "## 重点记录"
   create_if_missing: true
-  template: "00-系统/运行时/templates/worklog-template.md"
+  # 工作日志各 section 定义（与插件、hook 模板保持一致）
+  sections:
+    highlight:  "## 今日重点"      # 今日概要（人工填写）
+    todo:       "## 今日Todo"      # 待办事项（插件 记TODO 写入）
+    git:        "## Git 提交"      # git hook 自动写入
+    record:     "## 重点记录"      # Agent stop hook / 手动写入结构化条目
+    decision:   "## 关键决策"      # 重大决策
+    risk:       "## 问题与风险"    # 风险与遗留
+    next:       "## 明日计划"      # 明日计划
+  # Agent 事件默认写入 record section
+  default_section: "## 重点记录"
 
 # ── 条目格式
 entry_format: |
