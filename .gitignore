@@ -24,6 +24,7 @@
 .thirdspace/reports/            # 审计报告（本机生成，不共享）
 .thirdspace/manifests/          # 迁移 manifest（本机临时）
 .thirdspace/queues/             # 处理队列（本机临时）
+.thirdspace/events/             # 运行时事件日志（含本机路径，不共享）
 
 # ── 系统 ─────────────────────────────────────────────────────
 .DS_Store

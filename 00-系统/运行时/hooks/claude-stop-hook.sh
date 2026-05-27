@@ -119,7 +119,7 @@ if [ "$HAS_MAJOR" = true ] && [ ! -f "$MAJOR_FLAG" ]; then
     cat << 'EOF'
 {
   "decision": "block",
-  "reason": "检测到本次 session 有重大产出。请将关键内容追加到今日工作日志（02-日记/工作日志/YYYYMMDD_工作日志_周X.md）的「重点记录」章节，格式：### HH:MM — 标题 / **为什么做** / **怎么做的** / **改了什么**。如 auto_worklog MCP 可用则调用，否则用 Edit 工具直接写入。写完后正常停止。"
+  "reason": "检测到本次 session 有重大产出。请将关键内容追加到今日工作日志（02-日记/工作日志/YYYYMMDD_工作日志_周X.md）的「重点记录」章节，格式：### HH:MM — 标题 / **为什么做** / **怎么做的** / **改了什么**。用 Edit 工具直接追加写入。写完后正常停止。"
 }
 EOF
     exit 0

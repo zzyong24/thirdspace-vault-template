@@ -1,157 +1,27 @@
 id: knowledge
 name: 知识引擎
-description: "网页/飞书/视频内容采集 → 知识卡片/学习文档"
+description: "网页/PDF 内容采集 → 知识卡片/学习文档（纯 Agent 模式：WebFetch + Write）"
 icon: "📚"
 category: knowledge
-tools:
+# 实现方式：Agent 原生工具（无外部脚本）
+# - 内容采集：Agent 使用 WebFetch/Read 工具
+# - 内容保存：Agent 使用 Write 工具 + 标准 frontmatter
+# - 知识卡片路径：03-知识/card/{topic}/YYYYMMDD_{标题}.md
+# - 学习文档路径：03-知识/study/{topic}/YYYYMMDD_{标题}.md
+workflows:
+  - name: collect_and_card
+    description: 采集网页内容，生成知识卡片保存到 03-知识/
+    prompt: prompts/knowledge-card.md
+  - name: collect_and_study
+    description: 采集高密度内容（访谈/教程/播客），生成学习文档保存到 03-知识/
+    prompt: prompts/study-doc.md
   - name: add_note
-    description: Quick-add a note to a topic
-    params:
-      - name: content
-        type: string
-        required: true
-      - name: topic
-        type: string
-        required: true
-      - name: title
-        type: string
-        required: false
-      - name: publish_slug
-        type: string
-        required: false
-  - name: collect_content
-    description: Fetch web page, extract content, save raw to intake, return for AI card generation
-    params:
-      - name: url
-        type: string
-        required: true
-      - name: html
-        type: string
-        required: false
-      - name: topic
-        type: string
-        required: false
-      - name: download_images
-        type: bool
-        required: false
-        default: true
-  - name: save_knowledge_card
-    description: Save AI-generated knowledge card to vault
-    params:
-      - name: title
-        type: string
-        required: true
-      - name: summary
-        type: string
-        required: true
-      - name: key_points
-        type: list
-        required: true
-      - name: thinking_questions
-        type: list
-        required: true
-      - name: tags
-        type: list
-        required: false
-      - name: topic
-        type: string
-        required: false
-        default: reading
-      - name: site_type
-        type: string
-        required: false
-        default: web
-      - name: url
-        type: string
-        required: false
-      - name: author
-        type: string
-        required: false
-      - name: publish_date
-        type: string
-        required: false
-      - name: site_name
-        type: string
-        required: false
-      - name: raw_filepath
-        type: string
-        required: false
-  - name: collect_study
-    description: Fetch high-density content for study doc generation (podcasts, tutorials, interviews)
-    params:
-      - name: url
-        type: string
-        required: true
-      - name: html
-        type: string
-        required: false
-      - name: topic
-        type: string
-        required: false
-      - name: download_images
-        type: bool
-        required: false
-        default: true
-  - name: save_study_doc
-    description: Save AI-generated study document to vault
-    params:
-      - name: title
-        type: string
-        required: true
-      - name: content
-        type: string
-        required: true
-      - name: topic
-        type: string
-        required: false
-        default: reading
-      - name: tags
-        type: list
-        required: false
-      - name: site_type
-        type: string
-        required: false
-        default: web
-      - name: url
-        type: string
-        required: false
-      - name: author
-        type: string
-        required: false
-      - name: publish_date
-        type: string
-        required: false
-      - name: site_name
-        type: string
-        required: false
-      - name: raw_filepath
-        type: string
-        required: false
+    description: 快速记录笔记到 03-知识/notes/{topic}/，Agent 用 Write 工具直接写入
 prompts:
   - name: knowledge-card
     path: prompts/knowledge-card.md
-    variables:
-      - title
-      - topic
-      - site_type
-      - url
-      - author
-      - publish_date
-      - site_name
-      - raw_filepath
-      - intake_dir
   - name: study-doc
     path: prompts/study-doc.md
-    variables:
-      - title
-      - topic
-      - site_type
-      - url
-      - author
-      - publish_date
-      - site_name
-      - raw_filepath
-      - intake_dir
 triggers:
   - 收集
   - 知识卡片

@@ -7,7 +7,7 @@
 - `create_worklog(content)`: 创建今日工作日志（从模板生成）。可选传入初始内容。
 - `append_worklog(content, section)`: 追加内容到今日日志。可指定目标章节，不指定则智能路由。
 - `rebuild_worklog_index()`: 重建工作日志索引（关键词提取）。
-- `auto_worklog(summary)`: 自动记录工作摘要（供自动化场景调用）。自动创建日志、添加时间戳、智能分类。
+- `auto_worklog(summary)`: 自动记录工作摘要（供自动化场景调用）。调用本地脚本自动创建日志、添加时间戳、智能分类到对应章节。
 
 ### 日志格式规范
 
@@ -25,4 +25,4 @@
 
 - 只在一件事**完整收尾**后写，中间过程不写
 - "为什么"比"做了什么"重要——记决策理由，不记操作流水
-- auto_worklog 面向自动化场景，会自动处理日志不存在的情况
+- auto_worklog 面向自动化场景，调用 `scripts/worklog_manager.py`，自动处理日志不存在的情况

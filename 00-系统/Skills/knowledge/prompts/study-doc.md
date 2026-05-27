@@ -1,9 +1,4 @@
-⚡ 请先使用 read_file 读取完整原文，精读后再生成学习文档并调用 save_study_doc 保存。
-
-> ⚠️ **如果原始文本被直接发给你（而非通过 read_file 从文件读）**，请立即执行以下步骤，再继续处理：
-> 1. 将完整原始文本保存到 `{{intake_dir}}` 目录，文件名格式：`{{类型}}_{{日期}}_{{标题}}.md`
-> 2. 在文件开头添加 `**URL**: {{url}}` 或 `**来源**: 用户直接提供` 元数据行
-> 3. 保存完成后，再使用 read_file 读取文件，精读后再生成学习文档
+⚡ 请先用 WebFetch 或 Read 工具获取完整原文，精读后生成学习文档，再用 Write 工具保存到 vault。
 
 ### 学习文档生成指引
 
@@ -52,12 +47,28 @@
    - 相关推荐（文章/视频/工具），每项附一句话推荐理由
    - 关键词（用于后续搜索）
 
-### 元数据（调用 save_study_doc 时传入）
-- title: {{title}}
-- topic: {{topic}}
-- site_type: {{site_type}}
-- url: {{url}}
-- author: {{author}}
-- publish_date: {{publish_date}}
-- site_name: {{site_name}}
-- raw_filepath: {{raw_filepath}}
+### 用 Write 工具保存
+
+保存路径：`03-知识/study/{topic}/YYYYMMDD_{标题}.md`
+
+文件格式（frontmatter 必填 7 个字段）：
+
+```markdown
+---
+title: "{标题}"
+type: "study"
+topic: "{topic}"
+created: "YYYY-MM-DD HH:MM:SS"
+modified: "YYYY-MM-DD HH:MM:SS"
+tags: ["{tag1}", "{tag2}"]
+origin: "found"
+source: "{web|pdf|feishu}"
+status: "active"
+url: "{原文链接}"
+author: "{作者}"
+site_name: "{来源网站}"
+publish_date: "{发布日期}"
+---
+
+{学习文档正文}
+```
